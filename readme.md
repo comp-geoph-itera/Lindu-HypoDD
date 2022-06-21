@@ -28,7 +28,7 @@ In order to fill HypoDD and mingw64 folders, we can copy the contents from the r
 
 1. The `Help` will be fully applied as a full version.
 2. Auto-generating the values of some certain parameters to make easier using the program.
-3. Interactive descriptions that will help users to understand how to put a properly value in a parameter.
+3. Interactive descriptions that will help users to understand how to put a proper value in a parameter.
 4. Merging to Lindu Software as a whole seismology program.
 
 # Gallery

@@ -1,0 +1,1 @@
+a directory for Python virtual environments. It should contain the lindu env folder.

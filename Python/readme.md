@@ -1,4 +1,4 @@
-a directory for the Python source files. it should contain these following folders:
+A directory for the Python source files. it should contain these following folders:
 	
 	1. libs\
 	2. Scripts\

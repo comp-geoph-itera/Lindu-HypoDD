@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from datetime import datetime, timedelta
+import re
 
 class isc2pha(object):
     def __init__(self, filename):
@@ -15,6 +16,7 @@ class isc2pha(object):
         ev = False
         idst = 0
         st = False
+        chkst = True
         evdate = None
         mag = False
         magval = 0.0
@@ -23,6 +25,11 @@ class isc2pha(object):
             for item in file:
                 currLine = item.split()
                 if ev == True:
+                    if chkst == False:
+                        for key in self.events.keys():
+                            if key != 'MAG':
+                                del self.events[key][-1]
+
                     currLine = [item[evchk[c]:evchk[c+1]].strip() for c in range(len(evchk) - 1)]
                     idate = currLine[0].split('/')
                     self.events["ID"].append(id)
@@ -33,18 +40,20 @@ class isc2pha(object):
                     self.events["HR"].append(int(itime[0]))
                     self.events["MN"].append(int(itime[1]))
                     self.events["SC"].append(float(itime[2]))
+                    strtime = ":".join([str(int(itime[0])), str(int(itime[1])), str(float(itime[2]))])
 
-                    evdate = datetime.strptime(" ".join([currLine[0], currLine[1]]), "%Y/%m/%d %H:%M:%S.%f")
+                    evdate = datetime.strptime(" ".join([currLine[0], strtime]), "%Y/%m/%d %H:%M:%S.%f")
 
                     self.events["LAT"].append(float(currLine[4]))
                     self.events["LON"].append(float(currLine[5]))
-                    self.events["DEP"].append(float(currLine[9]))
+                    self.events["DEP"].append(float(re.sub('[A-Za-z]','', currLine[9])))
                     
                     self.events["RMS"].append(float(currLine[2]) if currLine[2] != '' else 0.0)
                     self.events["EH"].append(0.0)
                     self.events["EZ"].append(0.0)
                     
                     ev = False
+                    chkst = False
                 
                 if mag == True:
                     magval = float(currLine[1])
@@ -83,6 +92,7 @@ class isc2pha(object):
 
                 if currLine != [] and currLine[0] == 'Sta':
                     st = True
+                    chkst = True
                     self.events["MAG"].append(magval)
                     magval = 0.0
 
@@ -97,11 +107,13 @@ class isc2pha(object):
         e = self.events
         s = self.sts
         n = 0
+
         for i in range(len(e["ID"])):
             pha_list.append("# " + " ".join([str(e[key][i]) for key in list(e.keys())]))
             for j in range(n, len(s["ID"])):
                 if s["ID"][j] == e["ID"][i]:
                     pha_list.append(" ".join([str(s[key][j]) for key in list(s.keys())[1::]]))
+
         # self.events["text"] = self.events.loc[:,:].astype(str).agg(lambda x: '# ' + ' '.join(x), 1)
         # self.sts["text"] = self.sts.loc[:,'STA':].astype(str).agg(' '.join, 1)
         # for i in range(len(self.events)):
@@ -113,7 +125,7 @@ class isc2pha(object):
             f.write(pha_text)
 
 if __name__ == '__main__':
-    filename = os.path.join(Path(os.path.dirname(__file__)).parent, "examples", "isc", "test2.txt")
+    filename = os.path.join(Path(os.path.dirname(__file__)).parent, "examples", "isc", "test3.txt")
     main = isc2pha(filename)
     main.read()
     filename = os.path.join(Path(os.path.dirname(__file__)).parent, "examples", "isc", "phase.dat")

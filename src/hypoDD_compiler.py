@@ -91,8 +91,8 @@ class hypoDDCompile(object):
 
 SET PATH=%PATH%;{CDIR}
 SET CMD=hypoDD
-SET CC={CC}
-SET FC={FC}
+SET CC="{CC}"
+SET FC="{FC}"
 """ + r"""
 SET SRCS=%CMD% aprod cluster1 covar datum delaz delaz2 direct1 dist dtres exist freeunit getdata getinp ifindi indexxi juliam lsfit_lsqr lsfit_svd lsqr matmult1 matmult2 matmult3 mdian1 normlz partials ran redist refract resstat scopy sdc2 setorg skip snrm2 sort sorti sscal svd tiddid trialsrc trimlen ttime vmodel weighting
 SET CSRCS=atoangle_ atoangle datetime_ hypot_ rpad_ sscanf3_

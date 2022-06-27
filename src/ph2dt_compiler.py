@@ -74,8 +74,8 @@ class ph2dtCompile(object):
 
 SET PATH=%PATH%;{CDIR}
 SET CMD=ph2dt
-SET CC={CC}
-SET FC={FC}
+SET CC="{CC}"
+SET FC="{FC}"
 """ + r"""
 SET SRCS=%CMD% cluster datetime delaz ifindi indexx indexxi sorti trimlen
 SET CSRCS=atoangle_ atoangle rpad_ sscanf3_
@@ -125,8 +125,8 @@ echo %FC% %OBJS% -o %CMD%.exe
                 if os.path.isfile(oldfile) == True: os.remove(oldfile)
             
             self.msg("[msg] compiling a ph2dt program . . .")
-            cmd = f"cd {PH2DT_DIR} && .\compile.bat"
-            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, encoding='utf-8')
+            cmd = f"cmd.exe /C compile.bat"
+            process = subprocess.Popen(cmd, cwd=PH2DT_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, encoding='utf-8')
 
             while True:
                 out = process.stdout.readline()
@@ -143,13 +143,13 @@ echo %FC% %OBJS% -o %CMD%.exe
                 self.msg('[msg] copying files to the target directory')
                 shutil.copy(os.path.join(PH2DT_DIR, "ph2dt.exe"), os.path.join(self.working_dir, "ph2dt.exe"))
             
-            self.msg("[msg] remove old files in the ph2dt source folder")
-            oldfiles = []
-            for itype in ("*.o", "*.out", "*.exe", "*.fln", "*.bat"):
-                oldfiles.extend(glob.glob(os.path.join(PH2DT_DIR,itype)))
+            # self.msg("[msg] remove old files in the ph2dt source folder")
+            # oldfiles = []
+            # for itype in ("*.o", "*.out", "*.exe", "*.fln", "*.bat"):
+            #     oldfiles.extend(glob.glob(os.path.join(PH2DT_DIR,itype)))
 
-            for oldfile in oldfiles:
-                if os.path.isfile(oldfile) == True: os.remove(oldfile)
+            # for oldfile in oldfiles:
+            #     if os.path.isfile(oldfile) == True: os.remove(oldfile)
             
             if process.returncode == 0:
                 self.msg('[msg] FINISHED . . .')

@@ -143,7 +143,7 @@ class hypoDDrelocate(object):
             shutil.copy(os.path.join(BIN_DIR, "hypoDD.exe"), os.path.join(self.working_dir, "hypoDD.exe"))
             cmd = f"cd {self.working_dir} && .\\hypoDD.bat"
             cmd = os.path.join(self.working_dir, "hypoDD.bat")
-        return cmd
+        return "cmd.exe", ["/C", "hypoDD.bat"]
             # process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, encoding='utf-8', errors='ignore')
 
             # while True:

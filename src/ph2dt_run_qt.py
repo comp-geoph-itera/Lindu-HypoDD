@@ -85,6 +85,7 @@ class ph2dtRun(object):
             compile_bat = "\n".join([
                 "@echo off",
                 f"SET PATH=%PATH%;{CDIR}",
+                "echo %PATH%",
                 ".\ph2dt.exe ph2dt.inp"
             ])
             with open(os.path.join(self.working_dir, "ph2dt.bat"), 'w') as file:
@@ -95,7 +96,7 @@ class ph2dtRun(object):
             shutil.copy(os.path.join(BIN_DIR, "ph2dt.exe"), os.path.join(self.working_dir, "ph2dt.exe"))
             cmd = f"cd {self.working_dir} && .\ph2dt.bat"
             cmd = os.path.join(self.working_dir, "ph2dt.bat")
-        return cmd
+        return "cmd.exe", ["/C", "ph2dt.bat"]
             # process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, encoding='utf-8')
 
             # while True:
@@ -124,6 +125,6 @@ class ph2dtRun(object):
             #     self.msg('[msg] FAILED . . .')
 
 if __name__ == '__main__':
-    newph2dt = ph2dtRun(r"C:\Users\Lenovo\Documents\projects\hypoDD\examples\mytest1-res2")
+    newph2dt = ph2dtRun(r"C:\Users\Yudha WinMac\Documents\projects\lindu\examples\real1")
     newph2dt.configure_ph2dt()
     newph2dt.run_ph2dt()

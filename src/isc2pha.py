@@ -20,6 +20,8 @@ class isc2pha(object):
         evdate = None
         mag = False
         magval = 0.0
+        tempsts = [[],[]]
+        tempstp = [[],[]]
         evchk = [0,11,23,30,36,45,55,61,67,71,77,83,88,93,97,104,111]
         with open(self.filename, 'r') as file:
             for item in file:
@@ -64,28 +66,50 @@ class isc2pha(object):
 
                 if st == True:
                     if currLine[3] in ['P', 'S']:
-                        self.sts["ID"].append(id)
-                        self.sts["STA"].append(currLine[0])
-                        itime = currLine[4].split(':')
-                        strtime = ":".join([str(int(itime[0])), str(int(itime[1])), str(float(itime[2]))])
-                        stdate = datetime.strptime(" ".join([evdate.strftime('%Y/%m/%d'), strtime]), "%Y/%m/%d %H:%M:%S.%f")
-                        if stdate >= evdate:
-                            tt = stdate - evdate
+                        befchk = False
+                        if currLine[3] == "P":
+                            if tempstp[0] != []:
+                                if currLine[0] in tempstp[0]:
+                                    cidst = tempstp[0].index(currLine[0])
+                                    if tempstp[1][cidst] == currLine[3]:
+                                        befchk = True
                         else:
-                            tt = stdate + timedelta(days=1) - evdate
-                        self.sts["TT"].append(tt.total_seconds())
-                        self.sts["WGHT"].append(1)
-                        if currLine[3] == 'P':
-                            self.sts["PHA"].append("P")
-                        else:
-                            self.sts["PHA"].append("S")
-                        # self.sts["PHA"].append("S" if (idst-1 >= 0) and self.sts["STA"][-2] == currLine[0] else "P")
-                        idst += 1
+                            if tempsts[0] != []:
+                                if currLine[0] in tempsts[0]:
+                                    cidst = tempsts[0].index(currLine[0])
+                                    if tempsts[1][cidst] == currLine[3]:
+                                        befchk = True
+                        
+                        if befchk == False:
+                            self.sts["STA"].append(currLine[0])
+                            self.sts["ID"].append(id)
+                            itime = currLine[4].split(':')
+                            strtime = ":".join([str(int(itime[0])), str(int(itime[1])), str(float(itime[2]))])
+                            stdate = datetime.strptime(" ".join([evdate.strftime('%Y/%m/%d'), strtime]), "%Y/%m/%d %H:%M:%S.%f")
+                            if stdate >= evdate:
+                                tt = stdate - evdate
+                            else:
+                                tt = stdate + timedelta(days=1) - evdate
+                            self.sts["TT"].append(tt.total_seconds())
+                            self.sts["WGHT"].append(1)
+                            if currLine[3] == 'P':
+                                self.sts["PHA"].append("P")
+                                tempstp[0].append(self.sts["STA"][-1])
+                                tempstp[1].append(self.sts["PHA"][-1])
+                            else:
+                                self.sts["PHA"].append("S")
+                                tempsts[0].append(self.sts["STA"][-1])
+                                tempsts[1].append(self.sts["PHA"][-1])
+        
+                            # self.sts["PHA"].append("S" if (idst-1 >= 0) and self.sts["STA"][-2] == currLine[0] else "P")
+                            idst += 1
 
                 if currLine != [] and currLine[0] == 'Date':
                     ev = True
                     id += 1
                     idst = 0
+                    tempsts = [[],[]]
+                    tempstp = [[],[]]
                 
                 if currLine != [] and currLine[0] == 'Magnitude':
                     mag = True

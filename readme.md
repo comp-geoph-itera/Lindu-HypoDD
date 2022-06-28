@@ -24,6 +24,12 @@ pywin32-ctypes==0.2.0
 
 In order to fill HypoDD and mingw64 folders, we can copy the contents from the compressed release file (Lindu_hypoDD_vX.X.X.zip).
 
+## FEATURES
+
+1. Graphical user interfaces for ph2dt and hypoDD
+2. BMKG catalog (Indonesia) to PHA
+3. ISC to PHA
+
 ## INSTALLATION AND INSTRUCTIONS
 
 1. [Installation (**Windows OS**)](https://github.com/comp-geoph-itera/Lindu-HypoDD/blob/master/doc/01_installation.md)

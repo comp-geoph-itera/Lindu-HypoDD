@@ -30,6 +30,8 @@ In order to fill HypoDD and mingw64 folders, we can copy the contents from the r
 2. Auto-generating the values of some certain parameters to make easier using the program.
 3. Interactive descriptions that will help users to understand how to put a proper value in a parameter.
 4. Merging to Lindu Software as a whole seismology program.
+5. Normal distribution of `phase.dat` file to check what number of phases that has a highest frequency for an event.
+6. Illustrations for how we suggest the value for each parameter. 
 
 # Gallery
 <p align="center">

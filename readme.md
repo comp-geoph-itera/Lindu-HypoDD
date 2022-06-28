@@ -24,6 +24,11 @@ pywin32-ctypes==0.2.0
 
 In order to fill HypoDD and mingw64 folders, we can copy the contents from the compressed release file (Lindu_hypoDD_vX.X.X.zip).
 
+## INSTALLATION AND INSTRUCTIONS
+
+1. [Installation (**Windows OS**)](https://github.com/comp-geoph-itera/Lindu-HypoDD/blob/master/doc/01_installation.md)
+2. [Quick Instructions](https://github.com/comp-geoph-itera/Lindu-HypoDD/blob/master/doc/02_instructions.md)
+
 ## FUTURE PLANS
 
 1. The `Help` will be fully applied as a full version.

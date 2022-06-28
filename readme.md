@@ -48,6 +48,6 @@ In order to fill HypoDD and mingw64 folders, we can copy the contents from the c
 <p align="center">
 	<img src="/src/figs/lindu-hypoDD-1.png" alt="The Lindu-HypoDD GUI Interface" width="800"/>
 	<br>
-	The Lindu-HypoDD GUI Interface
+	The Lindu-HypoDD GUI Display
 	<br>	
 </p>

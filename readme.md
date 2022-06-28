@@ -2,7 +2,7 @@
 
 This GUI program is dedicated to operate **HypoDD** as a graphical user interface. It is focusing on providing the description and understanding how to input parameters properly instead of simplifying the HypoDD program.
 
-The latest release: https://github.com/comp-geoph-itera/Lindu-HypoDD/releases/download/v0.0.3/Lindu_hypoDD_v0.0.3.zip (only for **Windows**)
+The latest release: https://github.com/comp-geoph-itera/Lindu-HypoDD/releases/download/v0.0.5/Lindu_hypoDD_v0.0.5.zip (only for **Windows**)
 
 We use Python **3.9.10**. The Python requirements for using the scripts (the script files can be found in /src/ folder):
 

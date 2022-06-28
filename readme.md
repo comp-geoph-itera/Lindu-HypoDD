@@ -22,7 +22,7 @@ pywin32-ctypes==0.2.0
 
 *pyinstaller is only used for generating the executable files. Please consider to use `main.spec` instead of `*.py` files.
 
-In order to fill HypoDD and mingw64 folders, we can copy the contents from the release compressed (Lindu_hypoDD_vX.X.X.zip) files.
+In order to fill HypoDD and mingw64 folders, we can copy the contents from the compressed release file (Lindu_hypoDD_vX.X.X.zip).
 
 ## FUTURE PLANS
 
